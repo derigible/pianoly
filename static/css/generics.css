@@ -1,0 +1,466 @@
+/* CSS Generic styling for the different elements. Page 2 */
+
+/* 
+ ----------------------------------------------------
+  Default desktop css for screens of resolution 1080p or greater.
+  I am starting out with this as the standard as I can't see many people
+  other than me using it and all my screens support this size.
+ ----------------------------------------------------
+*/
+
+/**************************************
+	Base Tag Declarations
+***************************************/
+label{
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 20px;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+table{
+	max-width: 100%;
+    background-color: transparent;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+/**************************************
+	General Behavior Declarations
+***************************************/
+
+.fleft {
+	float: left;
+}
+
+.fright {
+	float: right;
+}
+
+.serif {
+	font-family: museo, sans-serif;
+}
+
+.sans-serif {
+  font-family: Sans-Serif;
+}
+
+.center {
+	margin: auto;	
+}
+
+.margin-top {
+	margin-top: .3em;
+}
+
+.button {
+	margin: auto;
+	text-align: center;
+    width: 8em;
+	font-size: initial;
+	right: 2em;
+	background-color: gray;
+	padding: .2em;
+	border: black;
+	border-style: solid;
+	color: white;
+	cursor: pointer;
+}
+
+.button:hover {
+	color: grey;
+	background-color: white;
+}
+
+.rotate90 {
+
+	/* Safari */
+	-webkit-transform: rotate(-90deg);
+	
+	/* Firefox */
+	-moz-transform: rotate(-90deg);
+	
+	/* IE */
+	-ms-transform: rotate(-90deg);
+	
+	/* Opera */
+	-o-transform: rotate(-90deg);
+	
+	/* Internet Explorer */
+	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+
+}
+
+/*
+The following code is taken from the bootstrap css for Familysearch.org
+*/
+.table{
+	width: 100%;
+    margin-bottom: 20px;
+}
+
+.table td, .table th{
+    padding: 8px;
+    line-height: 20px;
+    text-align: left;
+    vertical-align: top;
+    border-top: 1px solid #dddddd;
+}
+
+.table th {
+    font-weight: bold;
+    vertical-align: bottom;
+}
+
+.table caption+thead tr:first-child th, .table caption+thead tr:first-child td, .table colgroup+thead tr:first-child th, .table colgroup+thead tr:first-child td, .table thead:first-child tr:first-child th, .table thead:first-child tr:first-child td {
+    border-top: 0;
+}
+
+textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="date"]:focus, input[type="month"]:focus, input[type="time"]:focus, input[type="week"]:focus, input[type="number"]:focus, input[type="email"]:focus, input[type="url"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="color"]:focus, .uneditable-input:focus {
+    border-color: rgba(82, 168, 236, 0.8);
+    outline: 0;
+    outline: thin dotted \9;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6);
+    -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6);
+}
+
+textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    -webkit-transition: border linear .2s, box-shadow linear .2s;
+    -moz-transition: border linear .2s, box-shadow linear .2s;
+    -o-transition: border linear .2s, box-shadow linear .2s;
+    transition: border linear .2s, box-shadow linear .2s;
+}
+
+select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+    display: inline-block;
+    height: 20px;
+    padding: 4px 6px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    line-height: 20px;
+    color: #555555;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    vertical-align: middle;
+}
+
+@media (min-width: 1200px)
+input, textarea, .uneditable-input {
+    margin-left: 0;
+}
+
+input, textarea, .uneditable-input {
+    margin-left: 0;
+}
+
+input, textarea, .uneditable-input {
+    width: 206px;
+}
+
+input, button, select, textarea {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+input.ng-invalid {
+    border: 1px solid #f00;
+}
+
+input:focus:invalid, textarea:focus:invalid, select:focus:invalid {
+    color: #b94a48;
+    border-color: #ee5f5b;
+}
+
+input:focus:invalid:focus, textarea:focus:invalid:focus, select:focus:invalid:focus {
+    border-color: #e9322d;
+    -webkit-box-shadow: 0 0 6px #f8b9b7;
+    -moz-box-shadow: 0 0 6px #f8b9b7;
+    box-shadow: 0 0 6px #f8b9b7;
+}
+
+/*
+----------------------------------------------------
+	NavBar CSS
+----------------------------------------------------
+*/
+
+header{
+	padding: 1em;
+    height: 3.25em;
+    border-bottom-style: solid;
+    border-width: 1px;
+}
+
+div.nav-bar{
+	width: 55em;
+}
+
+#site-logo {
+	background: url('../imgs/site-logo.png');
+	background-repeat: no-repeat;
+    height: 3em;
+    width: 11em;
+}
+
+.login {
+	top: 1.9em;
+	position: relative;
+}
+
+.login a {
+	margin-right: .3em;
+	font-size: initial;
+	margin-left: initial;
+	top: -.7em;
+    position: relative;
+}
+
+.loggedin {
+	color: #9199B1;
+}
+
+ul.nav-bar{
+	text-align: center;
+	position: relative;
+}
+
+.nav-bar li{
+	display: block;
+	position: relative;
+	float: left;
+	list-style-type: none;
+	padding-right: 2.3em;
+	line-height: 3.5em;
+	cursor: pointer;
+	-webkit-transition: width .5s, height .5s, background-color .5s, -webkit-transform .5s;
+    transition: width .5s, height .5s, background-color .5s, transform .5s;
+}
+
+.nav-bar li:hover{
+	color: #7776D8;
+	transition-property: font-size;
+	font-size: 1.2em;
+	transition-property: line-height;
+	line-height: 2.9em;
+}
+
+.nav-bar li a{
+	color: inherit;
+	text-decoration: none;
+	display: block;
+}
+
+.nav-bar li a:hover{
+	color: inherit;
+	text-decoration: none;
+}
+
+.nav-bar li:hover li{
+	color: black;
+	text-decoration: none;
+}
+
+.nav-bar ul ul{
+	display:none;
+	position:absolute;
+	top:100%;
+	left:0;
+	background:#fff;
+	padding:0
+}
+
+.nav-bar ul ul li{
+	float:none;
+	width:200px;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.nav-bar ul li:hover > ul{
+	display:block
+}
+
+.modal-login {
+	float: right;
+	right: 0px;
+    position: absolute;
+    box-shadow: 0px 0px 35px 5px rgb(138, 138, 138);
+    background-color: white;
+}
+
+.table label{
+	display: inline;
+}
+
+/*
+----------------------------------------------------
+	Content Body CSS
+----------------------------------------------------
+*/
+
+#wrapper{
+	border-style: solid;
+	border-width: 1px;
+	min-height: 15em;
+	margin-top: .4em;
+}
+
+.wrapper-body {
+	min-width: 30em;
+	max-width: 60em;
+	margin: auto;
+	border-color: #C6C6D4;
+}
+
+.banner {
+    width: 100%;
+    height: 300px;
+}
+
+.welcome-banner{
+	background: url('../imgs/piano.jpg');
+    background-repeat: no-repeat;
+}
+
+.banner h1,h2,h3,h4 {
+	text-align: center;
+	font-family:  ‘Palatino Linotype’, ‘Book Antiqua’, Palatino, serif;
+}
+
+.banner h1 {
+	font-size: 4em;
+    margin-bottom: .4em;
+    padding: .5em;
+    font-weight: 100;	
+}
+
+.banner h2 {
+    font-size: 3.4em;
+    font-family: Sans-Serif;
+}
+
+.banner h3 {
+    font-size: 1.4em;
+    font-style: oblique;
+}
+
+.welcome-banner h1 {
+	color: white;
+	background-color: rgba(151, 165, 204, 0.59);
+}
+
+.welcome-banner h3 {
+	color: #DDE6FF;
+	background-color: rgba(83, 76, 76, 0.76);
+}
+
+.banner.odd {
+	width: 95%;
+	margin: auto;
+    border-top-style: solid;
+    border-width: 1px;
+    border-color: #E0E0F1;
+    margin-top: .3em;
+}
+
+.banner + h2 {
+	color: #3B486E;
+	font-size: 2em;
+	padding: .3em;
+}
+
+.sub-banner {
+	margin-top: 3em;
+}
+
+.sub-banner div.center {
+	width: 19em;
+}
+
+.center .button {
+	float: left;
+	margin-left: .4em;
+}
+
+/*
+----------------------------------------------------
+	Footer CSS
+----------------------------------------------------
+*/
+
+footer{
+	border-style: solid;
+	border-width: 1px;
+	min-height: 10em;
+	margin-top: 5px;
+}
+
+/*
+----------------------------------------------------
+	Sidebar CSS
+----------------------------------------------------
+*/
+
+.sidebar {
+	background-color: #C6C6D4;
+	float: left;
+    right: 7.2em;
+    top: 3em;
+    width: 7em;
+    position: relative;
+    padding: .3em;
+    box-sizing: border-box;
+/*     border-radius: 9px 0 0 9px; */
+}
+
+.sidebar li {
+	font-size: .8em;
+	padding: .3em;
+	text-align: right;
+	padding-right: .6em;
+	background-color: white;
+	margin-top: .3em;
+	cursor: pointer;
+}
+
+/* .sidebar li:first-child{ */
+/* 	border-radius: 9px 0 0 0; */
+/* } */
+
+/* .sidebar li:last-child{ */
+/* 	border-radius: 0 0 0 9px; */
+/* } */
+
+.sidebar li:hover{
+	background-color: #DDE6FF;
+}
+
+.sidebar.hide {
+	width: 1em;
+	overflow: hidden;
+	right: 1.2em;
+}
+
+.sidebar.hide li{
+	display: none;
+}
+
+.sidebar div{
+	display: none;
+}
+
+.sidebar.hide div{
+	display: block;
+    background: url('../imgs/left-arrow.png');
+    background-size: 10px 40px;
+    background-repeat: no-repeat;
+    height: 40px;
+    width: 10px;
+}

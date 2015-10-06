@@ -1,0 +1,9 @@
+<div class="container">
+	<a href="#/list/entity/{{$parent.entity.name.toLowerCase()}}">Explore Entity: </a>
+	<select ng-model="$parent.entity" 
+			ng-options="item.name for item in $parent.data.data">
+	</select>
+	<h3 style="text-align: center">{{options.resource}}</h3>
+	<pre>{{options.description}}</pre>
+	<div ng-include="'/static/table/table.html'"/>
+</div>

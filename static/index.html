@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html ng-app="BudgeteerApp">
+	<head>
+		<meta charset="utf-8">
+		<title>Piano Submissions</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link href='/static/css/reset.css' rel='stylesheet' media='screen'>
+		<link href='/static/css/generics.css' rel='stylesheet' media='screen'>
+
+		<style>
+			#chart1 g.nv-scatter g.nv-series-0 path.nv-point {
+			    fill-opacity: 1;
+			    stroke-opacity: 1;
+			}
+		</style>
+	</head>
+	<body ng-controller="MasterCtrl" class='with-3d-shadow with-transitions sans-serif'>
+		
+		<header>
+			<div class="center nav-bar">
+				<a href="#/welcome">
+				<div id="site-logo" class="fleft">	
+				</div>
+				</a>
+				<div class="center nav-bar">
+					<ul class="nav-bar">
+						<li>
+							<a href="#/lesson/options">
+								Assignments
+							</a>
+							<ul>
+								<hli url="#/lesson/all.html" txt="View All" class="sub-li"></hli>
+								<hli ng-if="user.level == 0" url="#/lesson/submit.html" txt="Submit" class="sub-li"></hli>
+								<hli ng-if="user.level > 0" url="#/lesson/create.html" txt="Create New" class="sub-li"></hli>
+								<hli ng-if="user.level > 0" url="#/lesson/manage.html" txt="Manage" class="sub-li"></hli>
+							</ul>
+						</li>
+						<li>
+							<a href="#/practice/options">
+								Practice Times
+							</a>
+							<ul>
+								<hli url="#/practice/all.html" txt="View All" class="sub-li"></hli>
+								<hli ng-if="user.level == 0" url="#/practice/submit.html" txt="Submit" class="sub-li"></hli>
+								<hli ng-if="user.level > 0" url="#/lesson/manage.html" txt="Manage" class="sub-li"></hli>
+							</ul>
+						</li>
+						<li>
+							Contact Info
+						</li>
+						<li>
+							Announcements
+						</li>
+					</ul>
+					<div class="fleft login">
+				    	<a href ng-click="login = !login" ng-class="{'loggedin' : isLoggedIn}">{{logged_msg}}</a>
+				    	<div class="modal-login" ng-show="login" static-include="admin/login.html">
+					</div>
+					</div>
+					
+				</div>
+				
+			</div>
+		</header> 
+		
+		<div id="wrapper" class="wrapper-body">
+			<div ng-view></div>
+		</div><!-- #wrapper.container -->
+		
+		<script src="/static/js/angular.min.js"></script>
+		<script src="/static/js/angular-route.min.js"></script>
+	    <script src="/static/js/angular-resource.min.js"></script>
+	    <script src="/static/js/angular-cookies.min.js"></script>
+<!-- 		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>  -->
+
+		<script src="/static/js/budgetpy/app.js"></script> 
+		<script src="/static/js/budgetpy/controllers.js"></script> 
+		<script src="/static/js/budgetpy/services.js"></script> 
+		<script src="/static/js/budgetpy/filters.js"></script> 
+		<script src="/static/js/budgetpy/directives.js"></script> 
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.2/d3.min.js" charset="utf-8"></script>
+		<script src="/static/js/nv.d3.js"></script>
+	    
+	</body>
+</html>

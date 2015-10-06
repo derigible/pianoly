@@ -1,0 +1,24 @@
+<div>
+	<div class="banner welcome-banner">
+		<h1>Piano Class</h1>
+		<h3>Assignment and Practice Submission App</h3>
+		<div class="center sub-banner">
+			<div class="center">
+				<div class="button" ng-click="$parent.$loc.path('/lesson/submit')">Submit Lesson</div>
+				<div class="button" ng-click="$parent.$loc.path('/practice/submit')">Submit Practice</div>
+			</div>
+		</div>
+	</div>
+	<h2 class="margin-top">Announcements</h2>
+	<div class="banner margin-top" 
+		ng-repeat="ann in announcements"
+		ng-class="{'odd' : $odd}">
+		<h2>{{ann.title}}</h2>
+		<p>
+			{{ann.text}}
+		</p>
+	</div>
+	<div ng-if="announcements.length == 0" class="banner margin-top odd">
+		<h1>No Announcements</h1>
+	</div>
+</div>

@@ -1,0 +1,84 @@
+/* CSS Reset. Page 1. */
+
+/* Initial settings for all of the things on the site; also known as a reset.
+   Taken from http://meyerweb.com/eric/thoughts/2007/05/01/reset-reloaded/ and
+   http://code.tutsplus.com/tutorials/weekend-quick-tip-create-your-own-resetcss-file--net-206
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: inherit;
+	vertical-align: baseline;
+}
+
+/* remember to define focus styles! */
+:focus {
+	outline: 0;
+}
+
+body {
+	line-height: 1;
+	color: black;
+	background: white;
+}
+
+ol, ul {
+	list-style: none;
+}
+
+/* tables still need 'cellspacing="0"' in the markup */
+table {
+	border-collapse: separate;
+	border-spacing: 0;
+}
+
+caption, th, td {
+	text-align: left;
+	font-weight: normal;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: "";
+}
+
+blockquote, q {
+	quotes: "" "";
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-size: 100%;
+	font-weight: bolder;
+	padding: .6em 0;
+	margin: 0 15px;
+}
+ 
+ul, ol {
+	list-style: none;
+}
+ 
+a {
+	color: black;
+	text-decoration: none;
+}
+ 
+a:hover {
+	text-decoration: underline;
+}
+
+hr {
+	width: 95%;
+}

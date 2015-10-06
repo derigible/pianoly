@@ -1,0 +1,56 @@
+<div class="container">
+	<a href ng-show="toHide.size" 
+		ng-click="showAll = !showAll">
+		{{showAll ? 'Hide' : 'Show Hidden'}}
+	</a>
+	<span ng-show="changes.size > 0"><span ng-show="toHide.size" > | </span>
+		<a href ng-show="changes.size > 0" 
+			ng-click="clearChanges()">
+			Clear Changes
+		</a>
+	</span>
+	<span ng-show="changes.size > 0"> | 
+		<a href 
+			ng-click="submitChanges()">
+			Submit Changes
+		</a>
+	</span>
+	<table class="table">
+		<thead>
+			<tr>
+				<th ng-repeat="head in headers" 
+					ng-click="changeOrder(head);"
+					ng-class="{'header-down' : 
+									reverse && 
+					           		(sortBy === '{{head}}' || 
+					            	 sortBy === '-{{head}}'), 
+					           'header-up' : 
+					            	!reverse && 
+					            	(sortBy === '{{head}}' || 
+					            	sortBy === '-{{head}}')}"
+					ng-show="!toHide.has(head) || showAll;">
+			 		{{head}}
+		 		</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-style="$odd && {'background-color': '#f9f9f9'}" 
+				ng-repeat="item in data.data | orderBy:sortBy:reverse">
+				<td ng-repeat="head in headers" 
+					ng-show="!toHide.has(head) || showAll;"
+					ng-keydown="changeIfEsc($event,item)">
+					<span ng-if="shouldShow(item) || noUpdates.has(head)" 
+						  ng-click="updateShow(item); focus($parent.$parent.$index, head);">
+						{{item[head]  | formatFloat:3}}
+					</span>
+					<input ng-attr-id="{{$parent.$index + head}}"
+							type="text"
+							ng-show="!shouldShow(item) && !noUpdates.has(head)" 
+							ng-change="addChange(item)"
+							ng-model="item[head]" 
+							ng-trim="true"/>		
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
