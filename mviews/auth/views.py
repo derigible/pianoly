@@ -86,7 +86,6 @@ class Permission(View):
         Return the permission level of the user.
         '''
         if not request.user.is_authenticated():
-            return jr({'level' : User.get_level_name(0)})
+            return jr({'level' : 0})
         else:
-            return jr({'level' : User.get_level_name(
-                                        getattr(request.user, 'level', 0))})
+            return jr({'level' : getattr(request.user, 'level', 0)})

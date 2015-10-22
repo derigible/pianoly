@@ -16,6 +16,9 @@
 	<thead>
 		<tr>
 			<th>
+				Description
+			</th>
+			<th>
 				Due Date
 			</th>
 			<th>
@@ -36,19 +39,29 @@
 		<tr ng-repeat="a in assignments"
 			class="row_item">
 			<td>
+				{{a.description}}
+				<textarea id="req{{$parent.$index+ '_' + $index}}"
+						ng-model="a.description" 
+						ng-show="a.edit && manage && params.entity != 'userassignment'" 
+						ng-blur="a.edit=false"
+						ng-change="addChanged(a)"
+						>
+				</textarea>
+			</td>
+			<td>
 				<span ng-show="!a.edit || !manage"
 						ng-click="manage ? a.edit = !a.edit : a.edit = false"
 						event-focus="click"
 						event-focus-id="req{{$index}}">
-						{{a.date | date:'medium'}}
+						{{a.due_date | date:'medium'}}
 				</span>
 				<input id="req{{$index}}"
-										type="datetime-local" 
-										ng-model="a.date" 
-										ng-show="a.edit && manage && params.entity != 'userassignment'" 
-										ng-blur="a.edit=false"
-										ng-change="addChanged(a)"
-										/>
+						type="datetime-local" 
+						ng-model="a.due_date" 
+						ng-show="a.edit && manage && params.entity != 'userassignment'" 
+						ng-blur="a.edit=false"
+						ng-change="addChanged(a)"
+						/>
 			</td>
 			<td>
 				<table class="table">

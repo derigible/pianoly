@@ -30,9 +30,9 @@
 							</a>
 							<ul>
 								<hli url="#/lesson/all" txt="View All" class="sub-li"></hli>
-								<hli ng-if="user.perms.level == 'student'" url="#/lesson/submit" txt="Submit" class="sub-li"></hli>
-								<hli ng-if="user.perms.level == 'teacher'" url="#/lesson/all?manage&modal" txt="Create New" class="sub-li"></hli>
-								<hli ng-if="user.perms.level == 'teacher'" url="#/lesson/all?manage" txt="Manage" class="sub-li"></hli>
+								<hli ng-if="user.level < 1" url="#/lesson/submit" txt="Submit" class="sub-li"></hli>
+								<hli ng-if="user.level > 0" url="#/lesson/all?manage&modal" txt="Create New" class="sub-li"></hli>
+								<hli ng-if="user.level > 0" url="#/lesson/all?manage" txt="Manage" class="sub-li"></hli>
 							</ul>
 						</li>
 						<li>
@@ -41,8 +41,8 @@
 							</a>
 							<ul>
 								<hli url="#/practice/all" txt="View All" class="sub-li"></hli>
-								<hli ng-if="user.perms.level == 'student'" url="#/practice/submit" txt="Submit" class="sub-li"></hli>
-								<hli ng-if="user.perms.level == 'teacher'" url="#/lesson/manage" txt="Manage" class="sub-li"></hli>
+								<hli ng-if="user.level < 1" url="#/practice/submit" txt="Submit" class="sub-li"></hli>
+								<hli ng-if="user.level > 0" url="#/lesson/manage" txt="Manage" class="sub-li"></hli>
 							</ul>
 						</li>
 						<li>

@@ -201,23 +201,16 @@ class PracticeSubmission(UserSubmissions):
     occurred = models.DateTimeField("the time the practice occurred.")
     duration = models.IntegerField("the duration in seconds")
     notes = models.TextField("any notes for the teacher.", null=True)
-    
+
 class Assignment(m):
-    register_user_on_create = 'creator'
     register_route = True
+    register_user_on_create = 'creator'
     created_on = models.DateTimeField("the time it was first created.",
                                       default=dt.now, 
                                       db_index=True
                                       )
-    description = models.TextField("A description of what the assignment is.")
-    creator = models.ForeignKey(User)
-    
-    @method_decorator(has_level('teacher'))
-    def dispatch(self, request, *args, **kwargs):
-        return super(Assignment, self).dispatch(request, *args, **kwargs)
-
-class AssignmentInstance(m):
-    register_route = True
+    description = models.TextField("A description of what this assignment"
+                                   "should accomplish")
     due_date = models.DateTimeField("the date that it is due.",
                                     db_index=True)
     requirements = models.TextField("a json object of requirements the "
@@ -226,10 +219,11 @@ class AssignmentInstance(m):
     users = models.ManyToManyField(User, 
                            through="UserAssignment", 
                            related_name="assignments")
+    creator = models.ForeignKey(User)
     
     @method_decorator(has_level('teacher'))
     def get(self, request, *args, **kwargs):
-        return super(AssignmentInstance, self).get(request, *args, **kwargs)
+        return super(Assignment, self).get(request, *args, **kwargs)
     
     @method_decorator(has_level('teacher'))
     def post(self, request, *args, **kwargs):
@@ -238,7 +232,7 @@ class AssignmentInstance(m):
                                     json.dumps(self.data['data']['requirements']
                                                     )
                                            )
-        return super(AssignmentInstance, self).post(request, *args, **kwargs)
+        return super(Assignment, self).post(request, *args, **kwargs)
     
     @method_decorator(has_level('teacher'))    
     def put(self, request, *args, **kwargs):
@@ -269,7 +263,7 @@ class AssignmentInstance(m):
         return hr(content_type="text/plain", status=204)
      
     def do_delete(self, request, *args, **kwargs):
-        deletes = super(AssignmentInstance, self).do_delete(request, 
+        deletes = super(Assignment, self).do_delete(request, 
                                                             *args,
                                                             **kwargs
                                                             ) 
@@ -282,7 +276,7 @@ class AssignmentInstance(m):
         
     @method_decorator(has_level('teacher'))    
     def delete(self, request, *args, **kwargs):
-        return super(AssignmentInstance, self).delete(request, *args, **kwargs)
+        return super(Assignment, self).delete(request, *args, **kwargs)
         
 class RealField(models.FloatField):
     '''
@@ -298,7 +292,7 @@ class RealField(models.FloatField):
         
 class UserAssignment(m):
     register_route = True
-    assignment = models.ForeignKey(AssignmentInstance)
+    assignment = models.ForeignKey(Assignment)
     owner = models.ForeignKey(User)
     reviewed = models.BooleanField("teacher has reviewed the assignment.", 
                                    default=False)
@@ -323,7 +317,7 @@ class UserAssignment(m):
             return err("Must include an assignment_id to create a user assignment.")
         if 'owner_id' not in self.data["data"]:
             return err("Must include an owner_id to create a user assignment.")
-        self.data["requirements"] = (AssignmentInstance
+        self.data["requirements"] = (Assignment
                                         .objects
                                         .filter(id=assignment)
                                         .values_list("requirements", flat=True)[0]

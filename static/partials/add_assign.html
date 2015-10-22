@@ -3,6 +3,9 @@
 		<thead>
 			<tr>
 				<th>
+					Description
+				</th>
+				<th>
 					Due Date
 				</th>
 				<th>
@@ -13,19 +16,18 @@
 		<tbody>
 			<tr class="row_item">
 				<td>
+					<textarea type="text" 
+							ng-model="anew.description"
+							>
+					</textarea>
+				</td>
+				<td>
 					<input type="datetime-local" 
 							ng-model="anew.due_date"
 							/>
 				</td>
 				<td>
 					<table class="table">
-						<thead>
-							<tr>
-								<th>
-									Requirement
-								</th>
-							</tr>
-						</thead>
 						<tbody>
 							<tr ng-repeat="req in anew.requirements">
 								<td class="first">

@@ -773,9 +773,12 @@ class ModelAsView(ModelWrapper, BaseModelAsView):
         abstract = True
 
 class UserManager(BaseUserManager):
-    def create_user(self, email, password=None):
+    def create_user(self, email, password=None, level=0):
         """
         Creates and saves a Poster with the given email and password.
+        
+        Level is ignored, just here to help make creation easier using the 
+        pipeline.
         """
         if not email:
             raise ValueError('Users must have an email address')

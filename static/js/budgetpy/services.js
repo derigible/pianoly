@@ -23,16 +23,16 @@ services.factory('AuthServicer', ['$cookies', 'Auth', 'USERKEY',
     function($cookies, auth, userKey){
 		return {
 			email: null,
-			perms: {level: 0},
+			level: 0,
 			get_user: function(){
 				if(this.email == null){
 					var userCookie = $cookies.getObject(userKey);
 					if(userCookie){
 						this.email = userCookie.email;
-						this.perms = userCookie.perms;
+						this.level = userCookie.level;
 					}
 				}
-				return {email: this.email, password: '', perms: this.perms}
+				return {email: this.email, password: '', level: this.level}
 			},
 			set_user: function(userData, self){
 				if(typeof self == 'undefined'){
@@ -40,8 +40,8 @@ services.factory('AuthServicer', ['$cookies', 'Auth', 'USERKEY',
 				}
 				if(!self.is_loggedin(userKey)){
 					self.email = userData.email;
-					self.perms = userData.perms;
-					$cookies.putObject(userKey, {email: self.email, perms: self.perms}, {path: '/'})
+					self.level = userData.level;
+					$cookies.putObject(userKey, {email: self.email, level: self.level}, {path: '/'})
 				}
 				return false;
 			},
@@ -59,7 +59,7 @@ services.factory('AuthServicer', ['$cookies', 'Auth', 'USERKEY',
 				return auth.login({}, data, function(data){
 					var empty = '';
 					auth.perms({}, function(pdata, empty, uk){
-						data.perms = pdata;
+						data.level = pdata.level;
 						set_user(data, self);
 						myfn(uk)
 					});
@@ -71,7 +71,7 @@ services.factory('AuthServicer', ['$cookies', 'Auth', 'USERKEY',
 					return auth.logout({}).$promise.then(function(data){
 						$cookies.remove(userKey, {path : '/'});
 						self.email = null;
-						self.perms = {level : 'student'};
+						self.level = 0;
 					});
 				}
 				return false;

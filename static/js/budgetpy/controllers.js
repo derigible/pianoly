@@ -60,13 +60,13 @@ ctrls.controller('WelcomeCtrl', ['$scope',
 	}
 ]);
 
-ctrls.controller('LessonCtrl', ['$scope', '$routeParams', 'EntityClient', 
-    function($scope, $rp, ec){
+ctrls.controller('LessonCtrl', ['$scope', '$routeParams', '$cacheFactory', 'EntityClient', 
+    function($scope, $rp, $cacheFactory, ec){
 		var params = {};
 		var changes = new Set();
 
-		if($scope.$parent.user.perms.level == 'teacher'){
-			params.entity = "assignmentinstance";
+		if($scope.$parent.user.level > 0){
+			params.entity = "assignment";
 		} else {
 			params.entity = "userassignment";
 			params._expand = true;
@@ -96,10 +96,11 @@ ctrls.controller('LessonCtrl', ['$scope', '$routeParams', 'EntityClient',
 					var a = $scope.assignments[i];
 					a.reqs =  angular.fromJson($scope.assignments[i].requirements);
 					a.reqs.edit = false;
-					a.date = new Date(a.due_date);
+					a.due_date = new Date(a.due_date);
 					a.edit = false;
 				}
 			}
+			console.log($scope.assignments)
 		});
 		
 		$scope.changeManage = function(){
@@ -191,7 +192,9 @@ ctrls.controller('LessonCtrl', ['$scope', '$routeParams', 'EntityClient',
 			
 		}
 		
-		$scope.anew = {due_date : new Date(),
+		$scope.anew = {
+				description: '',
+				due_date : new Date(),
 				requirements:[{desc: ''}]
 		};
 		
@@ -219,20 +222,17 @@ ctrls.controller('LessonCtrl', ['$scope', '$routeParams', 'EntityClient',
 		}
 		
 		$scope.addAss = function(){
-			var to_send = {data : {
-				description : $scope.anew.requirements
-			}};
-			ec.post({entity: 'assignment'}, to_send, function(data){
-				ec.post({entity: 'assignmentinstance'}, {data : $scope.anew}, function(data){
-					$scope.assignments.push({
-						date : $scope.anew.due_date,
-						reqs : $scope.anew.requirements
-					});
-					$scope.anew = {due_date : new Date(),
-							requirements: [{desc: ''}]
-					};
-					$scope.removeModal();
+			ec.post({entity: 'assignment'}, {data : $scope.anew}, function(data){
+				$scope.assignments.push({
+					description : $scope.anew.description,
+					due_date : $scope.anew.due_date,
+					reqs : $scope.anew.requirements
 				});
+				$scope.anew = {due_date : new Date(),
+						requirements: [{desc: ''}]
+				};
+				$scope.removeModal();
+				$cacheFactory.get('$http').removeAll();
 			});
 		}
 		
