@@ -62,3 +62,9 @@ fltrs.filter('orderObjectsBy', function(){
 fltrs.filter('urlEncode', function() {
   return window.encodeURIComponent;
 });
+
+fltrs.filter('percentage', ['$filter', function ($filter) {
+	return function (input, decimals) {
+		return $filter('number')(input * 100, decimals) + '%';
+	};
+}]);

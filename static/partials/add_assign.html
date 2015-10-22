@@ -1,0 +1,54 @@
+<form name="addnew">
+	<table class="table">
+		<thead>
+			<tr>
+				<th>
+					Due Date
+				</th>
+				<th>
+					Requirements
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr class="row_item">
+				<td>
+					<input type="datetime-local" 
+							ng-model="anew.due_date"
+							/>
+				</td>
+				<td>
+					<table class="table">
+						<thead>
+							<tr>
+								<th>
+									Requirement
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="req in anew.requirements">
+								<td class="first">
+									<input type="text" 
+											ng-model="req.desc"
+											/>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="button center" 
+		ng-click="addReq()"
+		ng-show="params.entity!='userassignment'">
+		Add Requirement
+	</div>
+</form>
+<div class="button center" 
+	 style="margin-top: 5px;"
+	 ng-click="addAss()"
+	 ng-show="params.entity!='userassignment'">
+	Done
+</div>

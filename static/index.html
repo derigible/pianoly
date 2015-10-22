@@ -29,10 +29,10 @@
 								Assignments
 							</a>
 							<ul>
-								<hli url="#/lesson/all.html" txt="View All" class="sub-li"></hli>
-								<hli ng-if="user.level == 0" url="#/lesson/submit.html" txt="Submit" class="sub-li"></hli>
-								<hli ng-if="user.level > 0" url="#/lesson/create.html" txt="Create New" class="sub-li"></hli>
-								<hli ng-if="user.level > 0" url="#/lesson/manage.html" txt="Manage" class="sub-li"></hli>
+								<hli url="#/lesson/all" txt="View All" class="sub-li"></hli>
+								<hli ng-if="user.perms.level == 'student'" url="#/lesson/submit" txt="Submit" class="sub-li"></hli>
+								<hli ng-if="user.perms.level == 'teacher'" url="#/lesson/all?manage&modal" txt="Create New" class="sub-li"></hli>
+								<hli ng-if="user.perms.level == 'teacher'" url="#/lesson/all?manage" txt="Manage" class="sub-li"></hli>
 							</ul>
 						</li>
 						<li>
@@ -40,9 +40,9 @@
 								Practice Times
 							</a>
 							<ul>
-								<hli url="#/practice/all.html" txt="View All" class="sub-li"></hli>
-								<hli ng-if="user.level == 0" url="#/practice/submit.html" txt="Submit" class="sub-li"></hli>
-								<hli ng-if="user.level > 0" url="#/lesson/manage.html" txt="Manage" class="sub-li"></hli>
+								<hli url="#/practice/all" txt="View All" class="sub-li"></hli>
+								<hli ng-if="user.perms.level == 'student'" url="#/practice/submit" txt="Submit" class="sub-li"></hli>
+								<hli ng-if="user.perms.level == 'teacher'" url="#/lesson/manage" txt="Manage" class="sub-li"></hli>
 							</ul>
 						</li>
 						<li>
@@ -78,8 +78,8 @@
 		<script src="/static/js/budgetpy/services.js"></script> 
 		<script src="/static/js/budgetpy/filters.js"></script> 
 		<script src="/static/js/budgetpy/directives.js"></script> 
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.2/d3.min.js" charset="utf-8"></script>
-		<script src="/static/js/nv.d3.js"></script>
+<!-- 		<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.2/d3.min.js" charset="utf-8"></script> -->
+<!-- 		<script src="/static/js/nv.d3.js"></script> -->
 	    
 	</body>
 </html>

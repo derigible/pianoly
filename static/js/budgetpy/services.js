@@ -29,7 +29,7 @@ services.factory('AuthServicer', ['$cookies', 'Auth', 'USERKEY',
 					var userCookie = $cookies.getObject(userKey);
 					if(userCookie){
 						this.email = userCookie.email;
-						this.perms = {level: userCookie.perms}
+						this.perms = userCookie.perms;
 					}
 				}
 				return {email: this.email, password: '', perms: this.perms}
@@ -71,7 +71,7 @@ services.factory('AuthServicer', ['$cookies', 'Auth', 'USERKEY',
 					return auth.logout({}).$promise.then(function(data){
 						$cookies.remove(userKey, {path : '/'});
 						self.email = null;
-						self.perms = {level : 0};
+						self.perms = {level : 'student'};
 					});
 				}
 				return false;
@@ -124,7 +124,7 @@ services.factory('EntityClient', ['$resource',
 		return $res('/db/models/:entity/', {},
 				{get : {
 					method: 'GET',
-					params: {entity:'project'},
+					params: {entity:'assignmentinstance'},
 					cache: true,
 					interceptor: {responseError: baseErrHandler}
 				},

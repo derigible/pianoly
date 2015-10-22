@@ -283,6 +283,10 @@ ul.nav-bar{
     border-width: 1px;
 }
 
+.nav-bar ul ul li:hover{
+	width: 192px	
+}
+
 .nav-bar ul li:hover > ul{
 	display:block
 }
@@ -387,6 +391,62 @@ ul.nav-bar{
 .center .button {
 	float: left;
 	margin-left: .4em;
+}
+
+.table .row_item{
+	border-bottom-style: dotted;
+    border-width: 1px;
+}
+
+.table .first{
+	width: 3em;
+}
+
+.row_item .first{
+	width: initial;
+	min-width: 3em;
+}
+
+.row_item .last{
+	width: 1em;
+}
+
+.row_item th{
+	text-align: center;	
+}
+
+.modal {
+	min-height: 25em;
+	width: 50%;
+	position: fixed;
+	background-color: white;
+	left: 25%;
+	top: 10em;
+	z-index: 100;
+	border: rgb(162, 154, 154);
+	border-style: solid;
+	border-width: 1px;
+	-webkit-box-shadow: 0px 0px 35px 5px rgb(138, 138, 138);
+	box-shadow: 0px 0px 35px 5px rgb(138, 138, 138);
+	padding: .25em;
+}
+
+.options {
+    margin-top: .5em;
+	padding-top: .5em;
+}
+         
+.modal .title{
+	font-size: xx-large;
+	margin: auto;
+	text-align: center;
+	width: 10em;
+	padding-top: .3em;
+}
+         
+.modal label{
+	display: inline;
+	margin-right: .3em;
 }
 
 /*

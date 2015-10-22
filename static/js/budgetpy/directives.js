@@ -3,7 +3,7 @@ var drctvs = angular.module('genericDirectives', []);
 /**
  * Taken from http://stackoverflow.com/questions/25596399/set-element-focus-in-angular-way
  */
-drctvs.directive('eventFocus', function(focus) {
+drctvs.directive('eventFocus', ['Focus', function(focus) {
     return function(scope, elem, attr) {
         elem.on(attr.eventFocus, function() {
           focus(attr.eventFocusId);
@@ -15,7 +15,7 @@ drctvs.directive('eventFocus', function(focus) {
           elem.off(attr.eventFocus);
         });
       };
-    });
+    }]);
 
 /**
  * Header list submenu option.
@@ -40,4 +40,20 @@ drctvs.directive('staticInclude', function($http, $templateCache, $compile) {
             $compile(contents)(scope);
         });
     };
+});
+
+drctvs.directive('modal', function() {
+	return {
+		restrict: 'E',
+		transclude: true,
+		templateUrl: 'partials/modal.html'
+	};
+});
+
+drctvs.directive('addAssign', function() {
+  return {
+	    restrict: 'E',
+	    scope: true,
+	    templateUrl: 'partials/add_assign.html'
+	  };
 });

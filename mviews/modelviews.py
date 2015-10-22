@@ -629,6 +629,21 @@ class BaseModelAsView(BaseModelWrapper, ViewWrapper):
             return r
         return self.other_response()
     
+    def do_delete(self, request, *args, **kwargs):
+        """
+        Modify the output of delete here. Returns the delete objects to be
+        deleted.
+        """
+        args = self._get_ids_from_args(*args)
+        if not args:
+            if "ids" not in self.params:
+                return err("Did not contain any valid ids to delete.")
+        deletes = self._get_qs(*args, **kwargs)   
+        if isinstance(deletes, str):
+            return err(deletes)  
+        
+        return deletes
+    
     def delete(self, request, *args, **kwargs):
         '''
         Delete an entity. This is a no payload endpoint where you can delete 
@@ -638,15 +653,7 @@ class BaseModelAsView(BaseModelWrapper, ViewWrapper):
         
         Will return status 204 if successful.
         '''
-        args = self._get_ids_from_args(*args)
-        if not args:
-            if "ids" not in self.params:
-                return err("Did not contain any valid ids to delete.")
-        deletes = self._get_qs(*args, **kwargs)   
-        if isinstance(deletes, str):
-            return err(deletes)  
- 
-        deletes.delete()
+        self.do_delete(request, *args, **kwargs).delete()
 
         return self.other_response()
     

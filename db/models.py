@@ -9,9 +9,12 @@ user model and who can see what, as well as what it is that will be submitted.
 This is built using the Model as View framework, v0.5
 '''
 
+import json
+
 from django.conf import settings
 from django.core.exceptions import FieldDoesNotExist
 from django.db import models
+from django.http import HttpResponse as hr
 from django.utils.decorators import method_decorator
 from django.utils import timezone as dt
 
@@ -147,7 +150,8 @@ class User(um):
         '''
         Override of AbstractBaseUser.set_password(self, raw_password):
         
-        This method will do some constraint validation on the password before saving it if settings.VALIDATE_PASSWORD_RULES is set to True
+        This method will do some constraint validation on the password before 
+        saving it if settings.VALIDATE_PASSWORD_RULES is set to True
         '''
         if getattr(settings, 'VALIDATE_PASSWORD_RULES' , False):
             if len(self.password) < 5:
@@ -218,19 +222,64 @@ class AssignmentInstance(m):
                                     db_index=True)
     requirements = models.TextField("a json object of requirements the "
                                     "assignment entails, which can be different "
-                                    "per instance intialization")
-    models.ManyToManyField(User, 
+                                    "per instance initialization")
+    users = models.ManyToManyField(User, 
                            through="UserAssignment", 
-                           related_name="students")
+                           related_name="assignments")
+    
+    @method_decorator(has_level('teacher'))
+    def get(self, request, *args, **kwargs):
+        return super(AssignmentInstance, self).get(request, *args, **kwargs)
     
     @method_decorator(has_level('teacher'))
     def post(self, request, *args, **kwargs):
+        print(self.data, type(self.data))
+        self.data['data']['requirements'] = (
+                                    json.dumps(self.data['data']['requirements']
+                                                    )
+                                           )
         return super(AssignmentInstance, self).post(request, *args, **kwargs)
     
     @method_decorator(has_level('teacher'))    
     def put(self, request, *args, **kwargs):
-        return super(AssignmentInstance, self).put(request, *args, **kwargs)
-    
+        for a in self.data.get('assignment_changes', []):
+            ass = self.__class__.objects.get(id=a['id'])
+            ass.requirements = a['desc']
+            ass.due_date = a['due_date']
+            ass.save()
+        for req in self.data.get('req_changes', []):
+            ass = self.__class__.objects.get(id=req['id'])
+            desc = json.loads(ass.requirements)
+            users = UserAssignment.objects.filter(assignment_id=ass.pk)
+            for u in users:
+                u.reqs = json.loads(u.requirements)
+            for i in req.get('remove_reqs', []):
+                desc.pop(i)
+                for u in users:
+                    u.reqs.pop(i)
+            for i in req.get('new_reqs', []):
+                desc.append(i)
+                for u in users:
+                    u.reqs.append(i)
+            for u in users:
+                u.requirements = json.dumps(u.reqs)
+                u.save()
+            ass.requirements = json.dumps(desc)
+            ass.save()
+        return hr(content_type="text/plain", status=204)
+     
+    def do_delete(self, request, *args, **kwargs):
+        deletes = super(AssignmentInstance, self).do_delete(request, 
+                                                            *args,
+                                                            **kwargs
+                                                            ) 
+        for d in deletes:
+            qs = UserAssignment.objects.filter(assignment_id=d.pk)
+            qs.delete()
+            
+        return deletes
+        
+        
     @method_decorator(has_level('teacher'))    
     def delete(self, request, *args, **kwargs):
         return super(AssignmentInstance, self).delete(request, *args, **kwargs)
@@ -255,10 +304,17 @@ class UserAssignment(m):
                                    default=False)
     first_view = models.DateTimeField("the time the student first viewed the"
                                       "assignment.", null=True)
-    requirements = models.TextField("the json object of the assignment but with"
-                                    "the fields marked as completed or not.")
+    requirements = models.TextField("the json array with each req marked as "
+                                    "true for complete, false otherwise.")
     completed = RealField("the percentage of the assignment done.", default=0.0)
     score = RealField("the score of the assignment", null=True)
+    
+    def do_get(self, request, *args, **kwargs):
+        qs = super(UserAssignment, self).do_get(request, *args, **kwargs)
+        if getattr(request.user, 'level', 0) > 1:
+            return qs
+        else:
+            return qs.filter(owner_id=request.user.pk)
     
     @method_decorator(has_level('teacher'))
     def post(self, request, *args, **kwargs):

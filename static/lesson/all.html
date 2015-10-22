@@ -1,0 +1,122 @@
+<modal ng-show="modal && params.entity!='userassignment'">
+	<add_assign anew="anew"></add_assign>
+</modal>
+
+<div class="button fleft" 
+		ng-click="changeManage()"
+		ng-show="params.entity!='userassignment'">
+		Manage
+</div>
+<div class="button fright" 
+		ng-click="submitChanges()"
+		ng-show="manage && params.entity!='userassignment'">
+		Submit
+</div>
+<table class="table">
+	<thead>
+		<tr>
+			<th>
+				Due Date
+			</th>
+			<th>
+				Requirements
+			</th>
+			<th ng-show="params.entity=='userassignment'">
+				% Complete
+			</th>
+			<th ng-show="params.entity=='userassignment'">
+				Score
+			</th>
+			<th ng-show="manage && params.entity!='userassignment'">
+				Remove
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="a in assignments"
+			class="row_item">
+			<td>
+				<span ng-show="!a.edit || !manage"
+						ng-click="manage ? a.edit = !a.edit : a.edit = false"
+						event-focus="click"
+						event-focus-id="req{{$index}}">
+						{{a.date | date:'medium'}}
+				</span>
+				<input id="req{{$index}}"
+										type="datetime-local" 
+										ng-model="a.date" 
+										ng-show="a.edit && manage && params.entity != 'userassignment'" 
+										ng-blur="a.edit=false"
+										ng-change="addChanged(a)"
+										/>
+			</td>
+			<td>
+				<table class="table">
+					<thead>
+						<tr>
+							<th>
+								Requirement
+							</th>
+							<th ng-show="params.entity=='userassignment'">
+								Complete?
+							</th>
+							<th ng-show="manage && params.entity!='userassignment'">
+								Remove
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="r in a.reqs">
+							<td class="first">
+								<span ng-show="!r.edit || !manage"
+										ng-click="manage ? r.edit = !r.edit : r.edit = false"
+										event-focus="click"
+										event-focus-id="req{{$parent.$index+ '_' + $index}}">
+									{{r.desc}}
+								</span>
+								<input id="req{{$parent.$index+ '_' + $index}}"
+										type="text" 
+										ng-model="r.desc" 
+										ng-show="r.edit && manage && params.entity != 'userassignment'" 
+										ng-blur="r.edit=false"
+										ng-change="addChanged(a)"
+										/>
+							</td>
+							<td class="last" ng-show="params.entity=='userassignment'">
+								<input type="checkbox" ng-model="r.complete" />
+							</td>
+							<td ng-show="manage && params.entity!='userassignment'">
+								<a href 
+									ng-click="removeReq(a, r, $index)"
+									ng-show="!r.hasOwnProperty('remove') || r.remove < 0">
+									X
+								</a>
+								<a href 
+									ng-click="addReqBack(a, r)"
+									ng-show="r.remove > -1">
+									Add Back
+								</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</td>
+			<td ng-show="params.entity=='userassignment'">
+				{{a.completed | percentage}}
+			</td>
+			<td ng-show="params.entity=='userassignment'">
+				{{a.score != null ? a.score : 'Pending'}}
+			</td>
+			<td ng-show="manage && params.entity!='userassignment'">
+				<a href ng-click="removeAssignment(a)">X</a>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<div>
+	<div class="button center" 
+		ng-click="addAssignment()"
+		ng-show="manage">
+		Add
+	</div>
+</div>
