@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{c86148da-791d-4334-99c5-3f115d8403aa}</ProjectGuid>
+    <ProjectHome />
+    <StartupFile>manage.py</StartupFile>
+    <SearchPath />
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{5F0BE9CA-D677-4A4D-8806-6076C0FAAD37};{349c5851-65df-11da-9384-00065b846f21};{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
+    <LaunchProvider>Django launcher</LaunchProvider>
+    <InterpreterId>{9a7a9026-48c1-4688-9d5d-e5699d47d074}</InterpreterId>
+    <InterpreterVersion>3.4</InterpreterVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IsWindowsApplication>False</IsWindowsApplication>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <PropertyGroup>
+    <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="db\models.py" />
+    <Compile Include="db\__init__.py" />
+    <Compile Include="manage.py" />
+    <Compile Include="mviews\auth\views.py" />
+    <Compile Include="mviews\auth\__init__.py" />
+    <Compile Include="mviews\errors.py" />
+    <Compile Include="mviews\modelviews.py" />
+    <Compile Include="mviews\serializer.py" />
+    <Compile Include="mviews\utils.py" />
+    <Compile Include="mviews\__init__.py" />
+    <Compile Include="pianoly\routes.py" />
+    <Compile Include="pianoly\settings.py" />
+    <Compile Include="pianoly\urls.py" />
+    <Compile Include="pianoly\wsgi.py" />
+    <Compile Include="pianoly\__init__.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="static\admin\login.html" />
+    <Content Include="static\admin\register.html" />
+    <Content Include="static\css\generics.css" />
+    <Content Include="static\css\reset.css" />
+    <Content Include="static\drill\header\li.html" />
+    <Content Include="static\drill\welcome.html" />
+    <Content Include="static\imgs\left-arrow.png" />
+    <Content Include="static\imgs\piano.jpg" />
+    <Content Include="static\imgs\site-logo.png" />
+    <Content Include="static\index.html" />
+    <Content Include="static\js\angular-cookies.min.js" />
+    <Content Include="static\js\angular-resource.min.js" />
+    <Content Include="static\js\angular-route.min.js" />
+    <Content Include="static\js\angular.min.js" />
+    <Content Include="static\js\budgetpy\app.js" />
+    <Content Include="static\js\budgetpy\controllers.js" />
+    <Content Include="static\js\budgetpy\directives.js" />
+    <Content Include="static\js\budgetpy\filters.js" />
+    <Content Include="static\js\budgetpy\services.js" />
+    <Content Include="static\js\d3.min.js" />
+    <Content Include="static\js\nv.d3.css" />
+    <Content Include="static\js\nv.d3.js" />
+    <Content Include="static\js\nv.d3.min.css" />
+    <Content Include="static\js\nv.d3.min.js" />
+    <Content Include="static\lesson\all.html" />
+    <Content Include="static\lesson\submit.html" />
+    <Content Include="static\partials\add_assign.html" />
+    <Content Include="static\partials\modal.html" />
+    <Content Include="static\practice\submit.html" />
+    <Content Include="static\table\entities.html" />
+    <Content Include="static\table\table.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="db" />
+    <Folder Include="mviews" />
+    <Folder Include="mviews\auth" />
+    <Folder Include="pianoly\" />
+    <Folder Include="static" />
+    <Folder Include="static\admin" />
+    <Folder Include="static\css" />
+    <Folder Include="static\drill" />
+    <Folder Include="static\drill\header" />
+    <Folder Include="static\imgs" />
+    <Folder Include="static\js" />
+    <Folder Include="static\js\budgetpy" />
+    <Folder Include="static\lesson" />
+    <Folder Include="static\partials" />
+    <Folder Include="static\practice" />
+    <Folder Include="static\table" />
+  </ItemGroup>
+  <ItemGroup>
+    <InterpreterReference Include="{9a7a9026-48c1-4688-9d5d-e5699d47d074}\3.4" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.Django.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:53435/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}" User="">
+        <WebProjectProperties>
+          <StartPageUrl>
+          </StartPageUrl>
+          <StartAction>CurrentPage</StartAction>
+          <AspNetDebugging>True</AspNetDebugging>
+          <SilverlightDebugging>False</SilverlightDebugging>
+          <NativeDebugging>False</NativeDebugging>
+          <SQLDebugging>False</SQLDebugging>
+          <ExternalProgram>
+          </ExternalProgram>
+          <StartExternalURL>
+          </StartExternalURL>
+          <StartCmdLineArguments>
+          </StartCmdLineArguments>
+          <StartWorkingDirectory>
+          </StartWorkingDirectory>
+          <EnableENC>True</EnableENC>
+          <AlwaysStartWebServerOnDebug>False</AlwaysStartWebServerOnDebug>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

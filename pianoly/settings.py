@@ -1,6 +1,6 @@
-
+﻿
 """
-Django settings for piano_submission project.
+Django settings for pianoly project.
 For more information on this file, see
 https://docs.djangoproject.com/en/1.7/topics/settings/
 For the full list of settings and their values, see
@@ -56,23 +56,20 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware'
 )
 
-ROOT_URLCONF = 'piano_submission.urls'
+ROOT_URLCONF = 'pianoly.urls'
 
-WSGI_APPLICATION = 'piano_submission.wsgi.application'
+WSGI_APPLICATION = 'pianoly.wsgi.application'
 
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
-if 'win32' not in sys.platform.lower():
-    pwd = 'systemtestrocks!!'
-else:
-    pwd = 'Is systemtest an aw3some team?'
+pwd = 'systemtestrocks!!'
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'p_lessons',
+        'NAME': 'pianoly',
         'USER': 'postgres',
         'PASSWORD': pwd,
         'HOST': 'localhost',
@@ -139,7 +136,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    "C:/Users/derigible/workspace/piano_submission/static/",
+    "D:/python/pianoly/static",
     "/p_lessons/static",
     )
 
@@ -152,7 +149,7 @@ STATICFILES_FINDERS = (
     )
 
 TEMPLATE_DIRS = (
-    "C:/Users/derigible/workspace/piano_submission/templates/",
+    "C:/Users/derigible/workspace/pianoly/templates/",
     "/p_lessons/templates/", #prod server needs this to be explicit
 )
 
@@ -164,118 +161,8 @@ if 'linux' in sys.platform.lower():
         )),
     )
 
-file_root = '/var/log/django/' if 'linux' in sys.platform.lower()  else os.path.join('C:\\Users', 'derigible', 'logs')
-if not os.path.exists(file_root):
-    os.mkdir(file_root, 0o755)
 
-if 'linux' in sys.platform.lower():
-    LOGGING = {
-        'version': 1,
-        'disable_existing_loggers': True,
-        'formatters': {
-            'verbose': {
-                'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
-            },
-            'simple': {
-                'format': '[%(levelname)s] [%(asctime)s] [%(module)s]: %(message)s'
-            },
-        },
-        'filters': {
-            'require_debug_false': {
-                '()': 'django.utils.log.RequireDebugFalse'
-            },
-        'require_debug_true': {
-            '()': 'django.utils.log.RequireDebugTrue',
-            }
-         },
-        'handlers': {
-            'null': {
-                'level': 'DEBUG',
-                'class': 'logging.NullHandler',
-            },
-            'mail_admins': {
-                'level': 'ERROR',
-                'filters': ['require_debug_false'],
-                'class': 'django.utils.log.AdminEmailHandler',
-                'formatter': 'simple'
-                },
-            'file_request': {
-                'level': 'WARNING',
-                'class': 'logging.handlers.RotatingFileHandler',   
-                'filename': os.path.join(file_root, 'request.log'),
-                'maxBytes': 1024*1024*1, # 1MB
-                'backupCount': 0,
-                'formatter': 'simple'
-                },    
-            'file_backend': {
-                'level': 'DEBUG',
-                'class': 'logging.handlers.RotatingFileHandler',
-                'filters': ['require_debug_true'],    
-                'filename': os.path.join(file_root, 'backend.log'),
-                'maxBytes': 1024*1024*6, # 6MB
-                'backupCount': 0,
-                'formatter': 'simple'
-                },    
-            'file_security': {
-                'level': 'DEBUG',
-                'class': 'logging.handlers.RotatingFileHandler',   
-                'filename': os.path.join(file_root, 'security.log'),
-                'maxBytes': 1024*1024*6, # 6MB
-                'backupCount': 0,
-                'formatter': 'simple'
-                },    
-            'file_migrations': {
-                'level': 'DEBUG',
-                'class': 'logging.handlers.RotatingFileHandler',   
-                'filename': os.path.join(file_root, 'migrations.log'),
-                'maxBytes': 1024*1024*1, # 1MB
-                'backupCount': 0,
-                'formatter': 'simple'
-                },    
-            'file_debug': {
-                'level': 'INFO',
-                'class': 'logging.handlers.RotatingFileHandler', 
-                'filename': os.path.join(file_root, 'debug.log'),
-                'maxBytes': 1024*1024*1, # 1MB
-                'backupCount': 0,
-                'formatter': 'verbose'
-                },    
-         },
-        'loggers': {
-            'django': {
-                'handlers': ['null'],
-                'propagate': True,
-                'level': 'INFO',
-                },
-            'django.request': {
-                'handlers': ['file_request'],
-                'level': 'WARNING',
-                'propagate': True,
-                },
-            'django.security': {
-                'handlers': ['file_security'],
-                'level': 'INFO',
-                'propagate': True,
-                },
-            'django.db.backends': {
-                'handlers': ['file_backend'],
-                'level': 'DEBUG',
-                'propagate': False,
-                },
-            'django.db.backends.schema': {
-                'handlers': ['file_migrations'],
-                'level': 'DEBUG',
-                'propagate': False,
-                },
-            'p_lessons': {
-                'handlers': ['file_debug'],
-                'level': 'INFO',
-                'propagate': True,
-                },
-        }
-    }
-else:
-    LOGGING = {
+LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'filters': {
