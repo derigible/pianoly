@@ -84,7 +84,7 @@ ctrls.controller('LessonCtrl', ['$scope', '$routeParams', '$cacheFactory', 'Enti
 			if(params.entity == "userassignment"){
 				for(var i = 0; i < $scope.assignments.length; i++){
 					var item = $scope.assignments[i];
-					item.due_date = item.assignment.due_date;
+					item.due_date = new Date(item.assignment.due_date);
 					item.reqs = angular.fromJson(item.assignment.requirements);
 					item.rcompleted = angular.fromJson(item.requirements);
 					for(var j = 0; j < item.rcompleted.length; j++){
@@ -241,8 +241,8 @@ ctrls.controller('LessonCtrl', ['$scope', '$routeParams', '$cacheFactory', 'Enti
 	}
 ]);
 
-ctrls.controller('AssignerCtrl', ['$scope', '$routeParams', 'WoodwardClient', 
-    function($scope, $rp, wc){
+ctrls.controller('AssignerCtrl', ['$scope', '$routeParams', '$cacheFactory', 'WoodwardClient',
+    function($scope, $rp, $cf, wc){
 		wc.assignment_students($rp, function(data){
 			$scope.data = data;
 			$scope.data.assignment.due_date = new Date(data.assignment.due_date);
@@ -255,15 +255,50 @@ ctrls.controller('AssignerCtrl', ['$scope', '$routeParams', 'WoodwardClient',
 		});
 		
 		var to_remove = new Set();
+		var to_add = new Set();
 		
 		$scope.remove = function(student){
 			if(to_remove.has(student.id)){
-				to_remove.remove(student.id);
-				student.append = true;
+			    to_remove.delete(student.id);
+				student.assigned = true;
 			} else {
 				to_remove.add(student.id);
-				student.append = false;
+				student.assigned = false;
 			}
+		}
+
+		$scope.add = function(student){
+		    if(to_add.has(student.id)){
+		        to_add.delete(student.id);
+		        student.assigned = false;
+		    } else {
+		        to_add.add(student.id);
+		        student.assigned = true;
+		    }
+		}
+
+		$scope.submitChanges = function () {
+		    var add = [];
+		    var remove = [];
+		    for (let i of to_add.values()) {
+		        add.push(i);
+		    }
+		    for (let i of to_remove.values()) {
+		        remove.push(i);
+		    }
+		    wc.student_assigned_assignment($rp, { "add": add, "remove": remove }, function (data) {
+                console.log(data)
+		        $scope.data.assigned_to = data.assigned_to;
+		        $scope.data.to_assign = data.to_assign;
+		        for (var i = 0; i < $scope.data.assigned_to.length; i++) {
+		            $scope.data.assigned_to[i].assigned = true;
+		        }
+		        for (var i = 0; i < $scope.data.to_assign.length; i++) {
+		            $scope.data.to_assign[i].assigned = false;
+		        }
+		        $cf.get('$http').removeAll();
+                alert("Changes submitted.")
+		    });
 		}
 	}
 ]);

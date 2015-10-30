@@ -154,12 +154,17 @@ services.factory('EntityClient', ['$resource',
 services.factory('WoodwardClient', ['$resource',
     function($res){
 		return $res('', {},
-				{assignment_students : {
-					method: 'GET',
-					cache: true,
-					url: '/assignment-students/:assignment',
-					interceptor: {responseError: baseErrHandler}
-				}
+				    {assignment_students : {
+					    method: 'GET',
+					    cache: true,
+					    url: '/assignment-students/:assignment/',
+					    interceptor: {responseError: baseErrHandler}
+				    },
+				    student_assigned_assignment: {
+				        method: 'POST',
+				        url: '/assignment-students/:assignment/',
+				        interceptor: {responseError: baseErrHandler}
+				    }
 				}, 
 				{stripTrailingSlashes: false}
 		);

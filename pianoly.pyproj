@@ -37,6 +37,9 @@
     <Compile Include="pianoly\urls.py" />
     <Compile Include="pianoly\wsgi.py" />
     <Compile Include="pianoly\__init__.py" />
+    <Compile Include="v\r.py" />
+    <Compile Include="v\__init__.py" />
+    <Compile Include="__init__.py" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="static\admin\login.html" />
@@ -64,6 +67,7 @@
     <Content Include="static\js\nv.d3.min.css" />
     <Content Include="static\js\nv.d3.min.js" />
     <Content Include="static\lesson\all.html" />
+    <Content Include="static\lesson\assigned-to.html" />
     <Content Include="static\lesson\submit.html" />
     <Content Include="static\partials\add_assign.html" />
     <Content Include="static\partials\modal.html" />
@@ -88,6 +92,7 @@
     <Folder Include="static\partials" />
     <Folder Include="static\practice" />
     <Folder Include="static\table" />
+    <Folder Include="v\" />
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="{9a7a9026-48c1-4688-9d5d-e5699d47d074}\3.4" />

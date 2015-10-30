@@ -129,8 +129,8 @@
 				{{a.score != null ? a.score : 'Pending'}}
 			</td>
 			<td ng-show="params.entity!='userassignment'">
-				<a href="#/lesson/assigned-to">
-					View
+				<a href="#/lesson/assigned-to/{{a.id}}">
+					Manage
 				</a>
 			</td>
 			<td ng-show="manage && params.entity!='userassignment'">

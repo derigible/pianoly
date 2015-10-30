@@ -41,7 +41,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'mviews',
-    'db'
+    'db',
+    'v'
 )
 
 ROUTE_AUTO_CREATE = "app_module_view"
