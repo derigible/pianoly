@@ -27,6 +27,10 @@ budgeteer.config(['$routeProvider',
 				templateUrl: 'lesson/all.html',
 				controller: 'LessonCtrl'
 			}).
+			when('/lesson/assigned-to/:assignment', {
+				templateUrl: 'lesson/assigned-to.html',
+				controller: 'AssignerCtrl'
+			}).
 			when('/practice/submit', {
 				templateUrl: 'practice/submit.html',
 				controller: 'WelcomeCtrl'

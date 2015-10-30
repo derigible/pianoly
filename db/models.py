@@ -117,8 +117,12 @@ class User(um):
     joined_on = models.DateTimeField('The time the poster first joined '
                                      'our blog.', auto_now_add = True)
     
-    public_fields = set(["id", "email", "joined_on", "level", "last_login"])
+    public_fields = set(["id", "email", "joined_on", "level", "last_login", 
+                         "fname", "lname"])
     register_route = True
+    
+    fname = models.TextField("The first name of the user.", null=True)
+    lname = models.TextField("The last name of the user.", null=True)
     
     USERNAME_FIELD = 'email'
     

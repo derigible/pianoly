@@ -46,6 +46,10 @@ table{
   font-family: Sans-Serif;
 }
 
+.text_center {
+	text-align: center;
+}
+
 .center {
 	margin: auto;	
 }

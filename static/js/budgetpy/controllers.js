@@ -170,7 +170,7 @@ ctrls.controller('LessonCtrl', ['$scope', '$routeParams', '$cacheFactory', 'Enti
 						  assignment_changes: c_to_submit
 						  };
 			
-			ec.put({entity: 'assignmentinstance'}, submit, function(data){
+			ec.put({entity: 'assignment'}, submit, function(data){
 				alert("submit successful");
 				for(var i = 0; i < to_submit.length; i++){
 					var a = $scope.assignments[to_submit[i].idx];
@@ -203,7 +203,7 @@ ctrls.controller('LessonCtrl', ['$scope', '$routeParams', '$cacheFactory', 'Enti
 			if(d){
 				var p = prompt("Type the word DELETE to confirm deletion.")
 				if(p == "DELETE"){
-					ec.delete({entity: 'assignmentinstance', ids: item.id}, function(){
+					ec.delete({entity: 'assignment', ids: item.id}, function(){
 						alert("delete successful");
 						$scope.assignments.splice($scope.assignments.indexOf(item), 1);
 					}, function(data){
@@ -238,5 +238,32 @@ ctrls.controller('LessonCtrl', ['$scope', '$routeParams', '$cacheFactory', 'Enti
 		
 		$scope.modal = $scope.$parent.$loc.search().hasOwnProperty('modal');
 		$scope.manage = $scope.$parent.$loc.search().hasOwnProperty('manage');
+	}
+]);
+
+ctrls.controller('AssignerCtrl', ['$scope', '$routeParams', 'WoodwardClient', 
+    function($scope, $rp, wc){
+		wc.assignment_students($rp, function(data){
+			$scope.data = data;
+			$scope.data.assignment.due_date = new Date(data.assignment.due_date);
+			for(var i = 0; i < $scope.data.assigned_to.length; i++){
+				$scope.data.assigned_to[i].assigned = true;
+			}
+			for(var i = 0; i < $scope.data.to_assign.length; i++){
+				$scope.data.to_assign[i].assigned = false;
+			}
+		});
+		
+		var to_remove = new Set();
+		
+		$scope.remove = function(student){
+			if(to_remove.has(student.id)){
+				to_remove.remove(student.id);
+				student.append = true;
+			} else {
+				to_remove.add(student.id);
+				student.append = false;
+			}
+		}
 	}
 ]);

@@ -124,7 +124,7 @@ services.factory('EntityClient', ['$resource',
 		return $res('/db/models/:entity/', {},
 				{get : {
 					method: 'GET',
-					params: {entity:'assignmentinstance'},
+					params: {entity:'assignment'},
 					cache: true,
 					interceptor: {responseError: baseErrHandler}
 				},
@@ -140,6 +140,26 @@ services.factory('EntityClient', ['$resource',
 					 method: 'OPTIONS',
 					 interceptor: {responseError: basePostErrHandler}
 				 }
+				}, 
+				{stripTrailingSlashes: false}
+		);
+	}
+]);
+
+/**
+ * To use, pass in an object that has a key-value pair of entity:<entity> where
+ * <entity> is one of the following:
+ * 
+ */
+services.factory('WoodwardClient', ['$resource',
+    function($res){
+		return $res('', {},
+				{assignment_students : {
+					method: 'GET',
+					cache: true,
+					url: '/assignment-students/:assignment',
+					interceptor: {responseError: baseErrHandler}
+				}
 				}, 
 				{stripTrailingSlashes: false}
 		);

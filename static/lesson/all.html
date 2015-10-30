@@ -30,6 +30,9 @@
 			<th ng-show="params.entity=='userassignment'">
 				Score
 			</th>
+			<th ng-show="params.entity!='userassignment'">
+				Assigned
+			</th>
 			<th ng-show="manage && params.entity!='userassignment'">
 				Remove
 			</th>
@@ -39,7 +42,12 @@
 		<tr ng-repeat="a in assignments"
 			class="row_item">
 			<td>
-				{{a.description}}
+				<span ng-show="params.entity == 'userassignment' ">
+					{{a.assignment.description}}
+				</span>
+				<span ng-show="params.entity != 'userassignment' && (!a.edit || !manage) ">
+					{{a.description}}
+				</span>
 				<textarea id="req{{$parent.$index+ '_' + $index}}"
 						ng-model="a.description" 
 						ng-show="a.edit && manage && params.entity != 'userassignment'" 
@@ -65,7 +73,7 @@
 			</td>
 			<td>
 				<table class="table">
-					<thead>
+					<thead ng-show="params.entity=='userassignment' || (params.entity!='userassignment' && manage)">
 						<tr>
 							<th>
 								Requirement
@@ -81,7 +89,7 @@
 					<tbody>
 						<tr ng-repeat="r in a.reqs">
 							<td class="first">
-								<span ng-show="!r.edit || !manage"
+								<span ng-show="(!r.edit || !manage)"
 										ng-click="manage ? r.edit = !r.edit : r.edit = false"
 										event-focus="click"
 										event-focus-id="req{{$parent.$index+ '_' + $index}}">
@@ -119,6 +127,11 @@
 			</td>
 			<td ng-show="params.entity=='userassignment'">
 				{{a.score != null ? a.score : 'Pending'}}
+			</td>
+			<td ng-show="params.entity!='userassignment'">
+				<a href="#/lesson/assigned-to">
+					View
+				</a>
 			</td>
 			<td ng-show="manage && params.entity!='userassignment'">
 				<a href ng-click="removeAssignment(a)">X</a>
