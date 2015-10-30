@@ -1,0 +1,48 @@
+<h1 class="text_center">Assign Users to Assignment</h1>
+<h3>Description</h3>
+<div class="text_center">
+	{{data.assignment.description}}
+</div>
+<h3>Due Date</h3>
+<div class="text_center">
+	{{data.assignment.due_date | date:medium}}
+</div>
+<table class="table">
+	<thead>
+		<tr>
+			<th>
+				Student Name
+			</th>
+			<th>
+				Assigned
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="student in data.assigned_to"
+			class="row_item">
+			<td>
+				{{student.fname}} {{student.lname}}
+			</td>
+			<td>
+				<input type="checkbox"
+						ng-model="student.assigned"
+						ng-click="remove(student)"/>
+			</td>
+		</tr>
+		<tr ng-repeat="student in data.to_assign">
+			<td>
+				{{student.fname}} {{student.lname}}
+			</td>
+			<td>
+				<input type="checkbox"
+						ng-model="student.assigned"
+						ng-click="add(student)"/>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<div 
+	
+		
+</div>
