@@ -36,6 +36,7 @@ LOGIN_REDIRECT_URL = reverse_lazy("homepage")
 # Application definition
 
 INSTALLED_APPS = (
+    'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
