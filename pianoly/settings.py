@@ -23,8 +23,8 @@ AUTH_USER_MODEL = 'db.User'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 if 'linux' in sys.platform.lower():
-    DEBUG = False
-    TEMPLATE_DEBUG = False
+    DEBUG = True
+    TEMPLATE_DEBUG = True
     ALLOWED_HOSTS = []
 else:
     DEBUG = True
@@ -163,8 +163,115 @@ if 'linux' in sys.platform.lower():
         )),
     )
 
-
-LOGGING = {
+if 'linux' in sys.platform.lower():
+    file_root = '/var/log/django/'
+    LOGGING = {
+        'version': 1,
+        'disable_existing_loggers': True,
+        'formatters': {
+            'verbose': {
+                'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+            },
+            'simple': {
+                'format': '[%(levelname)s] [%(asctime)s] [%(module)s]: %(message)s'
+            },
+        },
+        'filters': {
+            'require_debug_false': {
+                '()': 'django.utils.log.RequireDebugFalse'
+            },
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+            }
+         },
+        'handlers': {
+            'null': {
+                'level': 'DEBUG',
+                'class': 'logging.NullHandler',
+            },
+            'mail_admins': {
+                'level': 'ERROR',
+                'filters': ['require_debug_false'],
+                'class': 'django.utils.log.AdminEmailHandler',
+                'formatter': 'simple'
+                },
+            'file_request': {
+                'level': 'WARNING',
+                'class': 'logging.handlers.RotatingFileHandler',   
+                'filename': os.path.join(file_root, 'request.log'),
+                'maxBytes': 1024*1024*1, # 1MB
+                'backupCount': 0,
+                'formatter': 'simple'
+                },    
+            'file_backend': {
+                'level': 'DEBUG',
+                'class': 'logging.handlers.RotatingFileHandler',
+                'filters': ['require_debug_true'],    
+                'filename': os.path.join(file_root, 'backend.log'),
+                'maxBytes': 1024*1024*6, # 6MB
+                'backupCount': 0,
+                'formatter': 'simple'
+                },    
+            'file_security': {
+                'level': 'DEBUG',
+                'class': 'logging.handlers.RotatingFileHandler',   
+                'filename': os.path.join(file_root, 'security.log'),
+                'maxBytes': 1024*1024*6, # 6MB
+                'backupCount': 0,
+                'formatter': 'simple'
+                },    
+            'file_migrations': {
+                'level': 'DEBUG',
+                'class': 'logging.handlers.RotatingFileHandler',   
+                'filename': os.path.join(file_root, 'migrations.log'),
+                'maxBytes': 1024*1024*1, # 1MB
+                'backupCount': 0,
+                'formatter': 'simple'
+                },    
+            'file_debug': {
+                'level': 'INFO',
+                'class': 'logging.handlers.RotatingFileHandler', 
+                'filename': os.path.join(file_root, 'debug.log'),
+                'maxBytes': 1024*1024*1, # 1MB
+                'backupCount': 0,
+                'formatter': 'verbose'
+                },    
+         },
+        'loggers': {
+            'django': {
+                'handlers': ['null'],
+                'propagate': True,
+                'level': 'INFO',
+                },
+            'django.request': {
+                'handlers': ['file_request'],
+                'level': 'WARNING',
+                'propagate': True,
+                },
+            'django.security': {
+                'handlers': ['file_security'],
+                'level': 'INFO',
+                'propagate': True,
+                },
+            'django.db.backends': {
+                'handlers': ['file_backend'],
+                'level': 'DEBUG',
+                'propagate': False,
+                },
+            'django.db.backends.schema': {
+                'handlers': ['file_migrations'],
+                'level': 'DEBUG',
+                'propagate': False,
+                },
+            'pianoly': {
+                'handlers': ['file_debug'],
+                'level': 'INFO',
+                'propagate': True,
+                },
+        }
+    }
+else:
+    LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'filters': {
@@ -187,3 +294,4 @@ LOGGING = {
         },
     }
    }
+
